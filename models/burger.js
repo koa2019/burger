@@ -2,9 +2,10 @@
 // orm interacts with database  
 var orm = require('../config/orm');
 
-// creating a burger model that will call orm functions using burger specific input for the orm
+// creating a burger model that will call orm functions 
+// function uses burger specific input for the orm
 var burger = {
-    // function allows us to pass the callback value to another file
+    // define function allows us to pass the callback value to another file
     selectAll: function(cb) {
         orm.selectAll('burgers', function(res) {
             cb(res);

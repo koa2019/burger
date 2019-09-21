@@ -1,23 +1,36 @@
 {{!-- content will be rendered to {{{body}}} in main.handlebars file--}}
 
-<h1>Burgers</h1>
+<h1>Eat-da-Burgers!</h1>
 
 {{!-- loop through burger model & render each burger to page --}}
-<ul>
+<ol>
   {{#each burgers}}
-    <li>{{burger}}
-        <a href="/{{this.id}}">Devour It!</a>
+  <li>{{burger}}
+        <button id="{{this.id}}">Devour It!</button>
     </li>
   {{/each}}
-</ul>
+  
+  {{!-- {{#each burgers}}
+  {{#unless devoured}}
+  {{> burgers/burger-block devoured=true}}
+    {{/unless}}
+  {{/each}} --}}
+</ol>
 
-
+{{!-- adds a burger when it's devoured boolean value is true or equal to 1 --}}
+{{!-- <ul>
+  {{#each burgers}}
+    {{#if devoured}}
+      {{> burgers/burger-block devoured=false}}
+    {{/if}}
+  {{/each}}
+</ul> --}}
 
 <form id="insertOne" class="create-form">
 
-  <textarea type="text" name="burgerName"></textarea>
+  <textarea type="text" name="burgerName" id="burger" value="0"></textarea>
   <button type="submit">Submit</button>
 
 </form>
 
-<h2>Enter a burger you want to eat</h2>
+<h4>Enter a burger you want to eat</h2>

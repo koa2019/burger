@@ -4,22 +4,25 @@ var router = express.Router();
 
 var burger = require('../models/burger');
 
-// Create all our routes and set up logic within those routes where required.
+// Create all our routes and sets up logic within those routes 
+// express routes
 router.get("/", function(req, res) {
-    burger.all(function(data) {
+    // database connection
+    burger.selectAll(function(data) {
         var hbsObject = {
             burgers: data
         };
-        console.log(hbsObject);
+        console.log('hbs obj ' + hbsObject);
         res.render("index", hbsObject);
     });
 });
 
 router.post("/api/burgers", function(req, res) {
-    burger.create(
-        [req.body.burgerName, req.body.devoured],
+    burger.create([
+            "burgerName", "devoured"
+        ], [req.body.burgerName, req.body.value],
         function(result) {
-            // Send back the ID of the new quote
+            // Send back the ID of the new burger
             res.json({ id: result.insertId });
         });
 });
@@ -30,7 +33,7 @@ router.put("/api/burgers/:id", function(req, res) {
     console.log("condition", condition);
 
     burger.update({
-        devoured: req.body.sleepy
+        devoured: 1,
     }, condition, function(result) {
         if (result.changedRows == 0) {
             // If no rows were changed, then the ID must not exist, so 404
