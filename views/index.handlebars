@@ -6,6 +6,7 @@
                 {{#unless this.devoured}}
                 <div>
                     <pre>{{this.id}}. {{this.burgerName}}
+                    <button id="{{this.id}}">Devour It!</button>
                     </pre>
                 </div>
                 {{/unless}}
@@ -37,6 +38,7 @@
 <form id="insertOne" class="create-form">
 
   <textarea type="text" name="burgerName" id="burger" value="0"></textarea>
+  <br>
   <button type="submit">Submit</button>
 
 </form>
