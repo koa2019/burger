@@ -1,0 +1,23 @@
+{{!-- content will be rendered to {{{body}}} in main.handlebars file--}}
+
+<h1>Burgers</h1>
+
+{{!-- loop through burger model & render each burger to page --}}
+<ul>
+  {{#each burgers}}
+    <li>{{burger}}
+        <a href="/{{this.id}}">Devour It!</a>
+    </li>
+  {{/each}}
+</ul>
+
+
+
+<form id="insertOne" class="create-form">
+
+  <textarea type="text" name="burgerName"></textarea>
+  <button type="submit">Submit</button>
+
+</form>
+
+<h2>Enter a burger you want to eat</h2>
