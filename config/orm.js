@@ -26,9 +26,9 @@ var orm = {
         });
     },
     // query method to update burger table
-    updateOne: function() {
-        var query = 'UPDATE ';
-        connection.query(query, [], function(err, result) {
+    updateOne: function(tableName, valofCol, condition) {
+        var query = 'UPDATE ?? SET ? WHERE ??';
+        connection.query(query, [tableName, valofCol, condition], function(err, result) {
             if (err) throw err;
             console.log(result);
         });
