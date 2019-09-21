@@ -3,17 +3,15 @@ var express = require('express');
 var router = express.Router();
 
 var burger = require('../models/burger');
+// var orm = require('../config/orm')
 
 // Create all our routes and sets up logic within those routes 
 // express routes
 router.get("/", function(req, res) {
     // database connection
     burger.selectAll(function(data) {
-        var hbsObject = {
-            burgers: data
-        };
-        console.log('hbs obj ' + hbsObject);
-        res.render("index", hbsObject);
+
+        res.render("index", { burgers: data });
     });
 });
 

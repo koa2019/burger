@@ -45,8 +45,8 @@ var orm = {
     // query method selects everything from burgers table in mysql database
     selectAll: function(tableName, cb) {
 
-        var query = 'SELECT * FROM ??';
-        connection.query(query, [tableName], function(err, result) {
+        var query = 'SELECT * FROM ' + tableName + ';';
+        connection.query(query, function(err, result) {
             if (err) throw err;
             console.log(result);
             cb(result);
