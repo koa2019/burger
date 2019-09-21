@@ -1,25 +1,25 @@
 {{!-- content will be rendered to {{{body}}} in main.handlebars file--}}
 
 <h1>Eat-da-Burgers!</h1>
-<div>
- {{#each burgers}}
-                {{#unless this.devoured}}
-                <div>
-                    <pre>{{this.id}}. {{this.burgerName}}
-                    <button id="{{this.id}}">Devour It!</button>
-                    </pre>
-                </div>
-                {{/unless}}
-              {{/each}}
-              </div>
 
-{{!-- loop through burger model & render each burger to page --}}
-      {{!-- set id to this burger's id --}}
-        {{!-- <button id="{{this.id}}">Devour It!</button> --}}
-    {{!-- </li> --}}
-  {{!-- {{/each}} --}}
-   
-  {{!-- {{#each burgers}}
+<div>
+  {{!-- loop through burger model & render each burger to page --}}
+  {{#each burgers}}
+    {{#unless this.devoured}}
+  <div>
+    <pre id="{{this.id}}">{{this.burgerName}} <button id="{{this.id}}">Devour It!</button>
+    </pre>
+  </div>
+    {{/unless}}
+  {{/each}}
+</div>
+
+{{!-- set id to this burger's id --}}
+{{!-- <button id="{{this.id}}">Devour It!</button> --}}
+{{!-- </li> --}}
+{{!-- {{/each}} --}}
+
+{{!-- {{#each burgers}}
   {{#unless devoured}}
   {{> burgers/burger-block devoured=true}}
     {{/unless}}
