@@ -12,13 +12,13 @@ var burger = {
         });
     },
     // col & val are arrays
-    insertOne: function(col, val, cb) {
-        orm.insertOne('burgers', col, val, function(res) {
+    insertOne: function(cols, vals, cb) {
+        orm.insertOne('burgers', cols, vals, function(res) {
             cb(res);
         });
     },
-    updateOne: function(objColVal, condition, cb) {
-        orm.updateOne('burgers', objColVal, condition, function(res) {
+    updateOne: function(objColVals, condition, cb) {
+        orm.updateOne('burgers', objColVals, condition, function(res) {
             cb(res);
         });
     }

@@ -11,15 +11,41 @@ router.get("/", function(req, res) {
     // database connection
     burger.selectAll(function(data) {
 
+        // render to index.html the burger table from database
         res.render("index", { burgers: data });
     });
 });
 
+// .get() method call to database to show all burgers in api
+router.get('/api/burgers', function(req, res) {
+    burger.selectAll(function(results) {
+
+        // render results from api as json
+        res.json(results);
+    });
+});
+
+
+// post route for adding a new burger to the burgers table in database
 router.post("/api/burgers", function(req, res) {
+
+    // reference to models/burger using the insersetOne() function defined in burger.js
+    // 3 parameters column array, array of values to add to those columns, callback function
     burger.insertOne([
+
+            // column variable names in burger table
             "burgerName", "devoured"
-        ], [req.body.burgerName, req.body.value],
-        function(result) {
+
+            // values captured from form on index.html
+        ], [req.body.burgerName, req.body.devoured],
+
+        // defining callback function that returns data from database
+        function(err, result) {
+
+            if (err) {
+                return res.status(500).end();
+            }
+
             // Send back the ID of the new burger
             res.json({ id: result.insertId });
         });

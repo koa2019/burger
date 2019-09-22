@@ -46,19 +46,28 @@ var orm = {
     selectAll: function(tableName, cb) {
 
         var query = 'SELECT * FROM ' + tableName + ';';
+
         connection.query(query, function(err, result) {
             if (err) {
-
                 console.log(err);
-            }
+            };
             console.log(result);
             cb(result);
         });
     },
     // query method to add new burger to burgers table
-    insertOne: function(tableName, colToSearch, objColVal, cb) {
-        var query = "INSERT INTO ??, ?? VALUES ? ";
-        connection.query = (query, [tableName, colToSearch, objColVal], function(err, result) {
+    insertOne: function(tableName, cols, vals, cb) {
+        var queryStr = "INSERT INTO " + tableName;
+        queryStr += " (";
+        queryStr += cols.toString();
+        queryStr += ") ";
+        queryStr += "VALUES (";
+        queryStr += printQuestionMarks(vals.length);
+        queryStr += ") ";
+        console.log(queryStr);
+
+        // connect to database & send this query request
+        connection.query = (queryStr, vals, function(err, result) {
             if (err) throw err;
             console.log(result);
             cb(result);
@@ -68,8 +77,14 @@ var orm = {
     // query method to update burger table
     // An example of objColVals would be {burgerName: whopper, devoured: true}
 
-    updateOne: function(tableName, objColVal, condition, cb) {
-        var query = 'UPDATE ?? SET ? WHERE ??';
+    updateOne: function(tableName, objColVals, condition, cb) {
+        // var query = 'UPDATE ?? SET ? WHERE ??';
+        var queryStr = 'UPDATE ' + tableName;
+        queryStr += ' SET ';
+        queryStr += objToSql(objColVals);
+        queryStr += ' WHERE ';
+        queryStr += condition;
+        console.log('UPDATE queryStr', queryStr)
         connection.query(query, [tableName, objColVal, condition], function(err, result) {
             if (err) throw err;
             console.log(result);
