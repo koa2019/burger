@@ -8,6 +8,7 @@ var burger = require('../models/burger');
 // Create all our routes and sets up logic within those routes 
 // express routes
 router.get("/", function(req, res) {
+
     // database connection
     burger.selectAll(function(data) {
 
@@ -18,8 +19,12 @@ router.get("/", function(req, res) {
 
 // .get() method call to database to show all burgers in api
 router.get('/api/burgers', function(req, res) {
+
     burger.selectAll(function(results) {
 
+        // if (err) {
+        //     return res.status(500).end();
+        // }
         // render results from api as json
         res.json(results);
     });
@@ -29,36 +34,27 @@ router.get('/api/burgers', function(req, res) {
 // post route for adding a new burger to the burgers table in database
 router.post("/api/burgers", function(req, res) {
 
-    // reference to models/burger using the insersetOne() function defined in burger.js
-    // 3 parameters column array, array of values to add to those columns, callback function
-    burger.insertOne([
+    // console.log('reqbody = ', req.body)
+    // reference to models/burger using the insertOne() function defined in burger.js
+    // 3 parameters column, value to add to those columns, callback function
+    burger.insertOne(
 
-            // column variable names in burger table
-            "burgerName", "devoured"
-
-            // values captured from form on index.html
-        ], [req.body.burgerName, req.body.devoured],
+        // column name in burger table, values captured from form on index.html
+        ["burgerName"], [req.body.burgerName],
 
         // defining callback function that returns data from database
-        function(err, result) {
-
-            if (err) {
-                return res.status(500).end();
-            }
-
+        function(result) {
             // Send back the ID of the new burger
-            res.json({ id: result.insertId });
+            res.json({ id: result.insertId })
         });
 });
 
 router.put("/api/burgers/:id", function(req, res) {
-    var condition = "id = " + req.params.id;
+    var condition = req.params.id;
 
-    console.log("condition", condition);
-
-    burger.updateOne({
-        devoured: 1,
-    }, condition, function(result) {
+    console.log(condition);
+    var objVal = { devoured: true }
+    burger.updateOne('burgers', objVal, condition, function(result) {
         if (result.changedRows == 0) {
             // If no rows were changed, then the ID must not exist, so 404
             return res.status(404).end();

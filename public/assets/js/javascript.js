@@ -29,23 +29,25 @@ $(document).ready(function() {
 
         // initializing new obj with data from index.html form
         var newBurger = {
-            name: $("#burger").val().trim(),
+            burgerName: $("#burger").val().trim(),
         };
-        console.log('newBurger ', newBurger);
+        console.log('javascript.js newBurger ', newBurger);
 
         // Send the POST request with ajax method
         // pass the newBurger obj that was captured by the html form to the api
         $.ajax("/api/burgers", {
-            type: "POST",
-            data: newBurger
-        }).then(
-            function() {
-                console.log("created new burger");
-                // Reload the page to get the updated list
-                location.reload();
-                //     }
-                // ).catch(function(err) {
-                //     console.log("Error. Burger not saved to API");
-            });
+                type: "POST",
+                data: newBurger
+            })
+            .then(
+                function() {
+                    console.log("created new burger");
+                    // Reload the page to get the updated list
+                    location.reload();
+                });
+        // ).catch(function(err) {
+        //     console.log("Error. Burger not saved to API");
+        // });
+
     });
 });

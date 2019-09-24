@@ -51,12 +51,14 @@ var orm = {
             if (err) {
                 console.log(err);
             };
-            console.log(result);
+            // console.log(result);
             cb(result);
         });
     },
     // query method to add new burger to burgers table
     insertOne: function(tableName, cols, vals, cb) {
+        // console.log('cols & vals:', cols, vals)
+
         var queryStr = "INSERT INTO " + tableName;
         queryStr += " (";
         queryStr += cols.toString();
@@ -64,12 +66,18 @@ var orm = {
         queryStr += "VALUES (";
         queryStr += printQuestionMarks(vals.length);
         queryStr += ") ";
+
+        // queryStr should look like: "INSERT INTO tasks (task) VALUES (?)";
         console.log(queryStr);
 
         // connect to database & send this query request
-        connection.query = (queryStr, vals, function(err, result) {
-            if (err) throw err;
-            console.log(result);
+        // connection.query(queryStr, [req.body.task], function(err, result) {
+        connection.query(queryStr, vals, function(err, result) {
+            if (err) {
+                // return res.status(500).end();
+                console.log(err);
+            };
+            // console.log(result);
             cb(result);
 
         });
@@ -84,8 +92,8 @@ var orm = {
         queryStr += objToSql(objColVals);
         queryStr += ' WHERE ';
         queryStr += condition;
-        console.log('UPDATE queryStr', queryStr)
-        connection.query(query, [tableName, objColVal, condition], function(err, result) {
+        console.log('UPDATE queryStr: ', queryStr)
+        connection.query(queryStr, [tableName, objColVal, condition], function(err, result) {
             if (err) throw err;
             console.log(result);
             cb(result);

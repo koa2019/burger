@@ -8,12 +8,20 @@ var burger = {
     // define function allows us to pass the callback value to another file
     selectAll: function(cb) {
         orm.selectAll('burgers', function(res) {
+            // if (err) {
+            //     console.log(err);
+            // }
             cb(res);
         });
     },
-    // col & val are arrays
+    // cols & vals are arrays
     insertOne: function(cols, vals, cb) {
+        console.log('burger.js')
         orm.insertOne('burgers', cols, vals, function(res) {
+            // if (err) {
+            //     console.log(err);
+            // }
+            // console.log(res)
             cb(res);
         });
     },
